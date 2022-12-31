@@ -1,12 +1,11 @@
 import React from "react";
 import {Switch , Route} from 'react-router-dom';
-import Nav from "./components/Nav";
+// import Nav from "./components/Nav";
 import Home from './pages/Home';
 import Starred from './pages/Starred';
 
 function App() {
-  return ( <div>
-    <Nav/>
+  return ( 
   <Switch>
     
     <Route exact path="/"><Home/></Route>
@@ -16,8 +15,7 @@ function App() {
 
     <Route><div>NOT FOUND</div></Route>
     {/* default page for all the routes not exactly mentioned in the switch */}
-  </Switch>
-  </div> );
+  </Switch>);
 }
 
 export default App;
