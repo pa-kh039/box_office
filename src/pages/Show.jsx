@@ -2,6 +2,7 @@ import React , {useEffect, useReducer} from 'react';
 import {useParams} from 'react-router-dom';
 import ShowMainData from '../components/show/ShowMainData';
 import Details from '../components/show/Details';
+import { InfoBlock, ShowPageWrapper } from './Show.styled';
 import Seasons from '../components/show/Seasons';
 import { apiGet } from '../misc/config';
 import Cast from '../components/show/Cast';
@@ -65,7 +66,7 @@ const Show = () => {
     if (error){
         return (<div>Error occurred: {error}</div>)
     }
-    return (<div>
+    return (<ShowPageWrapper>
         <ShowMainData
         image={show.image}
         name={show.name}
@@ -73,20 +74,22 @@ const Show = () => {
         summary={show.summary}
         tags={show.genres}
         />
-        <div>
+        <InfoBlock>
             <h2>Details</h2>
             <Details status={show.status} network={show.network} premiered={show.premiered}/>
-        </div>
-        <div>
+        </InfoBlock>
+        <InfoBlock>
             <h2>Seasons</h2>
             {/* eslint-disable-next-line */}
-            <Seasons seasons={show._embedded.seasons} cast={show._embedded.cast}/>
-        </div>
-        <div>
-            <h2>Cast</h2>
-            <Cast/>
-        </div>
-    </div>);
+            <Seasons seasons={show._embedded.seasons}/>
+        </InfoBlock>
+        <InfoBlock>
+            
+            <h2>Cast </h2>
+            {/* eslint-disable-next-line */}
+            <Cast cast={show._embedded.cast}/>
+        </InfoBlock>
+    </ShowPageWrapper>);
 };
 
 export default Show;
