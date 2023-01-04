@@ -13,6 +13,8 @@ const Home = () => {
 
   const isShowsSearch = searchOption==='shows';
 
+
+
   const onInputChange = ev => {
     setInput(ev.target.value);
   };
@@ -43,7 +45,7 @@ const renderResults=()=>{
     // if the key pressed was Enter button //get keycodes from https://www.toptal.com/developers/keycode
     if (ev.keyCode === 13) 
     {
-      onSearch()
+      onSearch();
     }
   }
    const onRadioChange = (ev) => {
