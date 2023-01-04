@@ -1,6 +1,10 @@
 import React , {useEffect, useReducer} from 'react';
 import {useParams} from 'react-router-dom';
+import ShowMainData from '../components/show/ShowMainData';
+import Details from '../components/show/Details';
+import Seasons from '../components/show/Seasons';
 import { apiGet } from '../misc/config';
+import Cast from '../components/show/Cast';
 
 const reducer = (prevstate,action)=>{
     switch(action.type)
@@ -53,6 +57,7 @@ const Show = () => {
         });
         return (()=>{isMounted=false;});
     },[id]);
+    // eslint-disable-next-line
     console.log("show",show);
     if (isLoading){
         return (<div>Data is being loaded.</div>);
@@ -60,7 +65,28 @@ const Show = () => {
     if (error){
         return (<div>Error occurred: {error}</div>)
     }
-    return (<div>Show page</div>);
+    return (<div>
+        <ShowMainData
+        image={show.image}
+        name={show.name}
+        rating={show.rating}
+        summary={show.summary}
+        tags={show.genres}
+        />
+        <div>
+            <h2>Details</h2>
+            <Details status={show.status} network={show.network} premiered={show.premiered}/>
+        </div>
+        <div>
+            <h2>Seasons</h2>
+            {/* eslint-disable-next-line */}
+            <Seasons seasons={show._embedded.seasons} cast={show._embedded.cast}/>
+        </div>
+        <div>
+            <h2>Cast</h2>
+            <Cast/>
+        </div>
+    </div>);
 };
 
 export default Show;
