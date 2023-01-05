@@ -40,7 +40,8 @@ export const Star = styled.div`
   display: inline-block;
   width: 18px;
   height: 18px;
-  background-color: #ffc806;
+  
+  background-color: ${ (props) => (props.active ? '#ffc806' : '#ddd') };
   // the star is actually a square, it becomes a star because of the below clip-path
   clip-path: polygon(
     50% 0%,
