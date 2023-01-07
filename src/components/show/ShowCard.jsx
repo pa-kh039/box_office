@@ -22,7 +22,10 @@ const ShowCard = ({ id, image, name, summary,onStarClick, isStarred}) => {
         <div className='btns'>
           <Link to={`/show/${id}`}>Read more</Link>
           {/* eslint-disable-next-line */}
-          <button type="button" onClick={onStarClick}><Star active={isStarred}/></button>
+          {/* <button type="button" onClick={onStarClick}> */}
+          <button type='button' onClick={()=>onStarClick(id,isStarred)}>
+            <Star active={isStarred}/>
+          </button>
         </div>
       </StyledShowCard>
     );

@@ -9,21 +9,33 @@ const ShowGrid = ({ data }) => {
   // eslint-disable-next-line
   const [starredShows, dispatchStarred] = useShows();
 
+  const onStarClick = useCallback(
+    (showId, isStarred) => {
+      if (isStarred) {
+        dispatchStarred({ type: 'REMOVE', showId });
+      } else {
+        dispatchStarred({ type: 'ADD', showId });
+      }
+    },
+    [dispatchStarred]
+  );
+
+
   return (
     <FlexGrid>
       {data.map(({ show }) => {
-        const isStarred = starredShows.includes(show.id);
-        // eslint-disable-next-line
-        const onStarClick = useCallback( () => {
-          // eslint-disable-next-line
-          // console.log("done");
-          if (isStarred) {
+        // const isStarred = starredShows.includes(show.id);
+        // // eslint-disable-next-line
+        // const onStarClick = useCallback( () => {
+        //   // eslint-disable-next-line
+        //   // console.log("done");
+        //   if (isStarred) {
 
-            dispatchStarred({ type: 'REMOVE', showId: show.id });
-          } else {
-            dispatchStarred({ type: 'ADD', showId: show.id });
-          }
-        },[isStarred,show.id]);
+        //     dispatchStarred({ type: 'REMOVE', showId: show.id });
+        //   } else {
+        //     dispatchStarred({ type: 'ADD', showId: show.id });
+        //   }
+        // },[isStarred,show.id]);
 
         return (
           <ShowCard
@@ -34,7 +46,8 @@ const ShowGrid = ({ data }) => {
             summary={show.summary}
             // eslint-disable-next-line
             onStarClick={onStarClick}
-            isStarred={isStarred}
+            // isStarred={isStarred}
+            isStarred={starredShows.includes(show.id)}
           />
         );
       })}
