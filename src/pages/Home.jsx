@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useState,useCallback } from 'react';
 import MainPageLayout from '../components/MainPageLayout';
 import ShowGrid from '../components/show/ShowGrid';
 import ActorGrid from '../components/actor/ActorGrid';
@@ -8,21 +8,7 @@ import { RadioInputsWrapper, SearchButtonWrapper, SearchInput } from './Home.sty
 import CustomRadio from '../components/CustomRadio';
 // ,{ useState }
 
-const Home = () => {
-  const [input, setInput]=useLastQuery('');
-  const [results,setResults]=useState(null);
-  const [searchOption, setsearchOption]=useState('shows');
-  
-
-  const isShowsSearch = searchOption==='shows';
-
-
-
-  const onInputChange = ev => {
-    setInput(ev.target.value);
-  };
-
-const renderResults=()=>{
+const renderResults=(results)=>{
   if (results && results.length ===0)
   {
      return (<div>No results</div>);
@@ -35,6 +21,21 @@ const renderResults=()=>{
   }
   return null;
 }
+
+const Home = () => {
+  const [input, setInput]=useLastQuery('');
+  const [results,setResults]=useState(null);
+  const [searchOption, setsearchOption]=useState('shows');
+  
+
+  const isShowsSearch = searchOption==='shows';
+
+
+  const onInputChange = useCallback(ev => {
+    setInput(ev.target.value);
+  },[setInput]);
+
+
 
   const onSearch = () => {
     apiGet(`/search/${searchOption}?q=${input}`).then(result=>{setResults(result);})
@@ -51,11 +52,15 @@ const renderResults=()=>{
       onSearch();
     }
   }
-   const onRadioChange = (ev) => {
-      setsearchOption(ev.target.value);
-   }
+
+  const onRadioChange =useCallback( (ev) => {
+    setsearchOption(ev.target.value);
+ },[]);
+   
 
 // console.log(searchOption);
+
+// useWhyDidYouUpdate('home',{onInputChange, onKeyDown});
 
   return (
     <MainPageLayout>
@@ -73,7 +78,7 @@ const renderResults=()=>{
         Search
       </button>
       </SearchButtonWrapper>
-      {renderResults()}  
+      {renderResults(results)}  
 
     </MainPageLayout>
   );

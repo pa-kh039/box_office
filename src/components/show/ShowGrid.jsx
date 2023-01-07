@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import ShowCard from './ShowCard';
 import IMAGE_NOT_FOUND from '../../images/not-found.png';
 
@@ -13,8 +13,8 @@ const ShowGrid = ({ data }) => {
     <FlexGrid>
       {data.map(({ show }) => {
         const isStarred = starredShows.includes(show.id);
-
-        const onStarClick = () => {
+        // eslint-disable-next-line
+        const onStarClick = useCallback( () => {
           // eslint-disable-next-line
           // console.log("done");
           if (isStarred) {
@@ -23,7 +23,7 @@ const ShowGrid = ({ data }) => {
           } else {
             dispatchStarred({ type: 'ADD', showId: show.id });
           }
-        };
+        },[isStarred,show.id]);
 
         return (
           <ShowCard
