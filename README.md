@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deployed at 
+
+[https://pa-kh039.github.io/box_office](https://pa-kh039.github.io/box_office)
+
 ## Available Scripts
 
 In the project directory, you can run:
